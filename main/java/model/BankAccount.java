@@ -1,3 +1,5 @@
+package model;
+
 import java.math.BigDecimal;
 
 public class BankAccount {
@@ -10,6 +12,8 @@ public class BankAccount {
 
     private static Integer numberforAcc = 1;
 
+    private String password;
+
     public BankAccount(String nameOwner){
         this.nameOwner = nameOwner;
         this.accountNumber = "0".repeat(4-Integer.toString(numberforAcc).length()) + Integer.toString(numberforAcc);
@@ -17,9 +21,18 @@ public class BankAccount {
         this.balance = new BigDecimal("0.0");
     }
 
-    public String getBalance(){
-        return "Ваш баланс: " + balance;
+    public BigDecimal getBalance(){
+        return balance;
     }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public String getAccountNumber(){
         return this.accountNumber;
     }
@@ -31,17 +44,10 @@ public class BankAccount {
 
     public void addBalance(BigDecimal balance){
         this.balance =this.balance.add(balance);
-        System.out.println("Ваш баланс пополнен на " + balance);
     }
 
     public void withdrawBalance(BigDecimal balance){
-        if (balance.compareTo(this.balance) > 0){
-            System.out.println("Сумма для снятия больше, чем на балансе!");
-            System.out.println("Сумма, доступная для снятия: " + this.balance);
-        }else {
             this.balance = this.balance.subtract(balance);
-            System.out.println("С вашего баланса было снято " + balance);
-        }
     }
 
     @Override
