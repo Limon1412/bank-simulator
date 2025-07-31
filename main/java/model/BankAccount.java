@@ -2,13 +2,14 @@ package model;
 
 import repository.TransactionType;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankAccount {
+public class BankAccount implements Serializable {
 
     private final String nameOwner;
 

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class BankService {
+public class BankService{
 
     public static void transfer(BankAccount accountFrom, BankAccount accountTo, BigDecimal amount){
         synchronized (BankService.class) {

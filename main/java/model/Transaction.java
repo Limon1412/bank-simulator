@@ -2,10 +2,11 @@ package model;
 
 import repository.TransactionType;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Transaction {
+public class Transaction implements Serializable {
 
     public Transaction(LocalDateTime date,TransactionType type, BigDecimal amount){
         this.date = date;

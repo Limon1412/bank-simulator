@@ -14,10 +14,10 @@ public class AuthService {
     public static boolean createUser(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите имя владельца банковского аккаунта:");
-        String nameOwner = scanner.nextLine();
+        String nameOwner = scanner.nextLine().trim();
         BankAccount bankAccount = new BankAccount(nameOwner);
         System.out.println("Введите пароль для доступа к аккаунту:");
-        String password = scanner.nextLine();
+        String password = scanner.nextLine().trim();
         if (!Database.ACCOUNTS.containsKey(SecurityService.hashPassword(password,bankAccount.getAccountNumber()))) {
             bankAccount.setPassword(SecurityService.hashPassword(password,bankAccount.getAccountNumber()));
             System.out.println("Номер счёта: " + bankAccount.getAccountNumber());
