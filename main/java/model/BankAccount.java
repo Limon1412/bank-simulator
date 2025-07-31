@@ -1,6 +1,12 @@
 package model;
 
+import repository.TransactionType;
+
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankAccount {
 
@@ -10,9 +16,11 @@ public class BankAccount {
 
     private BigDecimal balance;
 
-    private static Integer numberforAcc = 1;
-
     private String password;
+
+    private static Integer numberforAcc = 1;
+    
+    private List<Transaction> transactions = new ArrayList<>();
 
     public BankAccount(String nameOwner){
         this.nameOwner = nameOwner;
@@ -37,6 +45,19 @@ public class BankAccount {
         return this.accountNumber;
     }
 
+    public void setTransactions(Transaction transaction){
+        transactions.add(transaction);
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+
+
+    public List<Transaction> getTransactions(){
+        return transactions;
+    }
     public String getAccount(){
         return "Счёт " + accountNumber + "\n" + "Владелец: " + nameOwner + "\n"
                 + "Баланс счёта: " + balance;
@@ -44,10 +65,12 @@ public class BankAccount {
 
     public void addBalance(BigDecimal balance){
         this.balance =this.balance.add(balance);
+        transactions.add(new Transaction(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), TransactionType.DEPOSIT,balance));
     }
 
     public void withdrawBalance(BigDecimal balance){
             this.balance = this.balance.subtract(balance);
+            transactions.add(new Transaction(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), TransactionType.WITHDRAW,balance));
     }
 
     @Override

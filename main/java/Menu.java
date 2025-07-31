@@ -1,9 +1,11 @@
 import model.BankAccount;
+import model.Transaction;
 import repository.Database;
 import service.BankService;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -17,7 +19,8 @@ public class Menu {
             System.out.println("3. Пополнить баланс");
             System.out.println("4. Снять с баланса деньги");
             System.out.println("5. Перевести деньги на другой счёт");
-            System.out.println("6. Выйти в главное меню");
+            System.out.println("6. История операций");
+            System.out.println("7. Выйти в главное меню");
 
             try {
                 byte choice = 0;
@@ -155,6 +158,15 @@ public class Menu {
                         System.out.println();
                         break;
                     case 6:
+                        System.out.println("История операций");
+                        System.out.println("-----------------------");
+                        List<Transaction> transactions = bankAccount.getTransactions();
+                        for(var transaction : transactions){
+                            System.out.println(transaction);
+                        }
+                        System.out.println();
+                        break;
+                    case 7:
                         System.out.println("Главное меню");
                         running = false;
                         System.out.println();
@@ -163,7 +175,7 @@ public class Menu {
                         System.out.println("Вы ввели неправильное значение, выберите снова!");
                 }
             } catch(InputMismatchException exception){
-                System.out.println("Введите число от 1 до 5!");
+                System.out.println("Введите число от 1 до 7!");
                 scanner.nextLine();
             } catch (Exception e){
                 System.out.println("Ошибка: " + e.getMessage());
