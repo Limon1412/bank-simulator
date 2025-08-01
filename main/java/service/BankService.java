@@ -17,7 +17,5 @@ public class BankService{
             accountFrom.setTransactions(new Transaction(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),TransactionType.TRANSFER,amount));
             accountTo.setTransactions(new Transaction(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),TransactionType.DEPOSIT,amount));
         }
-
     }
-
 }

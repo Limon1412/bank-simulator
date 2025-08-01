@@ -3,6 +3,7 @@ package service;
 import model.BankAccount;
 import repository.AccountRepositoryImpl;
 import repository.Database;
+import valid.isValidPassword;
 
 
 import java.util.Scanner;
@@ -18,6 +19,10 @@ public class AuthService {
         BankAccount bankAccount = new BankAccount(nameOwner);
         System.out.println("Введите пароль для доступа к аккаунту:");
         String password = scanner.nextLine().trim();
+        while(!isValidPassword.validPassword(password)){
+            System.out.println("Введите пароль:");
+            password = scanner.nextLine().trim();
+        }
         if (!Database.ACCOUNTS.containsKey(SecurityService.hashPassword(password,bankAccount.getAccountNumber()))) {
             bankAccount.setPassword(SecurityService.hashPassword(password,bankAccount.getAccountNumber()));
             System.out.println("Номер счёта: " + bankAccount.getAccountNumber());
@@ -34,6 +39,10 @@ public class AuthService {
         String number = scanner.nextLine();
         System.out.println("Введите пароль:");
         String password = scanner.nextLine();
+        while(!isValidPassword.validPassword(password)){
+            System.out.println("Введите пароль:");
+            password = scanner.nextLine().trim();
+        }
         if(Database.ACCOUNTS.containsKey(number)){
             if(Database.ACCOUNTS.get(number).getPassword().equals(SecurityService.hashPassword(password,number))){
                 Database.ACCOUNTS.remove(number);return true;
@@ -57,6 +66,10 @@ public class AuthService {
         }
         System.out.println("Введите пароль:");
         String password = scanner.nextLine();
+        while(!isValidPassword.validPassword(password)){
+            System.out.println("Введите пароль:");
+            password = scanner.nextLine().trim();
+        }
         BankAccount bankAccount = accountRepository.findById(number);
         if(bankAccount.getPassword().equals(SecurityService.hashPassword(password,bankAccount.getAccountNumber()))){
             return bankAccount;

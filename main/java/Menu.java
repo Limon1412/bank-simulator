@@ -2,6 +2,8 @@ import model.BankAccount;
 import model.Transaction;
 import repository.Database;
 import service.BankService;
+import service.SecurityService;
+import valid.isValidPassword;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
@@ -20,7 +22,8 @@ public class Menu {
             System.out.println("4. Снять с баланса деньги");
             System.out.println("5. Перевести деньги на другой счёт");
             System.out.println("6. История операций");
-            System.out.println("7. Выйти в главное меню");
+            System.out.println("7. Поменять пароль");
+            System.out.println("8. Выйти в главное меню");
 
             try {
                 byte choice = 0;
@@ -167,6 +170,32 @@ public class Menu {
                         System.out.println();
                         break;
                     case 7:
+                        System.out.println("Изменение пароля");
+                        System.out.println("-----------------------");
+                        boolean validPassword = false;
+                        System.out.println("Введите текущий пароль:");
+                        while (!validPassword) {
+                            String passwordPrev = scanner.nextLine().trim();
+                            if (passwordPrev.equalsIgnoreCase("отмена")){
+                                break;
+                            }
+                            if (SecurityService.hashPassword(passwordPrev, bankAccount.getAccountNumber())
+                                    .equals(bankAccount.getPassword())) {
+                                System.out.println("Введите новый пароль:");
+                                String passwordNew = scanner.nextLine().trim();
+                                while(!isValidPassword.validPassword(passwordNew)){
+                                    System.out.println("Введите пароль:");
+                                    passwordNew = scanner.nextLine().trim();
+                                }
+                                bankAccount.setPassword(SecurityService.hashPassword(passwordNew, bankAccount.getAccountNumber()));
+                                validPassword = true;
+                            } else {
+                                System.out.println("Неверный пароль!");
+                                System.out.println("Введите снова(или 'отмена' для выхода).");
+                            }
+                        }
+                        break;
+                    case 8:
                         System.out.println("Главное меню");
                         running = false;
                         System.out.println();

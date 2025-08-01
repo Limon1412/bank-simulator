@@ -54,7 +54,9 @@ public class BankAccount implements Serializable {
         this.balance = balance;
     }
 
-
+    public void changePassword(String s){
+        password = s;
+    }
 
     public List<Transaction> getTransactions(){
         return transactions;
