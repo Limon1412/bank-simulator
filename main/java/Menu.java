@@ -204,7 +204,7 @@ public class Menu {
                         System.out.println("Вы ввели неправильное значение, выберите снова!");
                 }
             } catch(InputMismatchException exception){
-                System.out.println("Введите число от 1 до 7!");
+                System.out.println("Введите число от 1 до 8!");
                 scanner.nextLine();
             } catch (Exception e){
                 System.out.println("Ошибка: " + e.getMessage());
